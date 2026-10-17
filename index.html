@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PixelSqueeze — Free Online Image Compressor, Converter &amp; Resizer</title>
+  <meta name="description" content="Compress, convert and resize images 100% free in your browser. No uploads, no accounts needed. Supports JPG, PNG, WebP, GIF. Reduce file size while keeping quality.">
+  <meta name="keywords" content="image compressor, compress images online, image converter, resize image, PNG to JPG, WebP converter, reduce image size, free image optimizer">
+  <link rel="canonical" href="https://pixelsqueeze.com/">
+
+  <!-- Google Search Console verification -->
+  <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE"> -->
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pixelsqueeze.com/">
+  <meta property="og:title" content="PixelSqueeze — Free Online Image Compressor &amp; Converter">
+  <meta property="og:description" content="Compress, convert and resize images instantly. 100% private — your images never leave your device. No uploads, no account.">
+  <meta property="og:image" content="https://pixelsqueeze.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PixelSqueeze — Free Online Image Compressor">
+  <meta name="twitter:description" content="Compress, convert and resize images. 100% private, no uploads.">
+  <meta name="twitter:image" content="https://pixelsqueeze.com/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- AdSense script here -->
+
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- JSON-LD: WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PixelSqueeze",
+    "url": "https://pixelsqueeze.com",
+    "description": "Free browser-based image compressor, converter and resizer. No uploads required.",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "featureList": ["Image compression","Format conversion","Image resizing","Batch processing","ZIP download","PNG quantization"]
+  }
+  </script>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+═══════════════════════════════════════════ -->
+<header class="site-header" role="banner">
+  <div class="container">
+    <a href="/" class="logo" aria-label="PixelSqueeze home">
+      <div class="logo-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/><circle cx="16.5" cy="15" r="2"/>
+        </svg>
+      </div>
+      <span class="logo-text">PixelSqueeze</span>
+    </a>
+
+    <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+      <a href="/" class="nav-link active" aria-current="page">Compress</a>
+      <a href="/png-to-webp.html" class="nav-link">Convert</a>
+      <a href="/#resize" class="nav-link">Resize</a>
+      <a href="/blog/index.html" class="nav-link">Blog</a>
+      <a href="/about.html" class="nav-link">About</a>
+      <a href="/#faq" class="nav-link">FAQ</a>
+    </nav>
+
+    <div class="header-actions">
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="site-nav">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════ -->
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="container">
+    <div class="hero-badge" aria-hidden="true">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      100% Free &amp; Private — No account needed
+    </div>
+
+    <h1 id="hero-heading">
+      Compress images<br><span class="highlight">without losing quality</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Reduce JPG, PNG, WebP and GIF files up to 90% smaller. Convert formats, resize dimensions — entirely in your browser. Nothing is ever uploaded to any server.
+    </p>
+
+    <!-- Drop Zone -->
+    <div id="drop-zone" class="drop-zone" role="button" tabindex="0"
+         aria-label="Drop images here, or press Enter to choose files"
+         aria-describedby="drop-zone-formats">
+      <div class="drop-zone-icon" aria-hidden="true">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+        </svg>
+      </div>
+      <p class="drop-zone-title">Drop images here</p>
+      <p class="drop-zone-sub">or paste from clipboard (Ctrl+V / ⌘+V)</p>
+      <button class="btn-choose" id="btn-choose" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        Choose Images
+      </button>
+      <p id="drop-zone-formats" class="drop-zone-formats">JPG · PNG · WebP · GIF · BMP &nbsp;|&nbsp; Up to 50 files · 50 MB each</p>
+    </div>
+    <input type="file" id="file-input" multiple
+           accept="image/jpeg,image/png,image/webp,image/gif,image/bmp"
+           class="sr-only" aria-label="Select image files" tabindex="-1">
+
+    <!-- Trust row -->
+    <div class="hero-trust" role="list" aria-label="Key features">
+      <div class="trust-item" role="listitem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>No server uploads</div>
+      <div class="trust-item" role="listitem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Batch 50 files</div>
+      <div class="trust-item" role="listitem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>JPG · PNG · WebP · GIF</div>
+      <div class="trust-item" role="listitem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>100% Free forever</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     TOOL
+═══════════════════════════════════════════ -->
+<main id="tool" class="tool-area" role="main">
+  <div class="container">
+
+    <!-- Overall progress -->
+    <div id="overall-progress" class="overall-progress hidden"
+         role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Overall processing progress">
+      <div id="overall-progress-bar" class="overall-progress-bar" style="width:0%"></div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs-container" id="resize" role="tablist" aria-label="Processing mode">
+      <button class="tab-btn active" data-tab="compress" role="tab"
+              aria-selected="true" aria-controls="panel-compress" id="tab-compress">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 6 4-4 4 4"/><path d="M12 2v10"/><path d="m8 18 4 4 4-4"/><path d="M12 22V12"/></svg>
+        Compress
+      </button>
+      <button class="tab-btn" data-tab="convert" role="tab"
+              aria-selected="false" aria-controls="panel-convert" id="tab-convert">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+        Convert
+      </button>
+      <button class="tab-btn" data-tab="resize" role="tab"
+              aria-selected="false" aria-controls="panel-resize" id="tab-resize">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        Resize
+      </button>
+    </div>
+
+    <!-- ── Settings: Compress ── -->
+    <div class="settings-panel visible" data-tab="compress" id="panel-compress" role="tabpanel" aria-labelledby="tab-compress">
+      <div class="settings-grid">
+        <div class="setting-group">
+          <label class="setting-label" for="quality-slider">Quality: <span id="quality-val">80</span></label>
+          <input type="range" id="quality-slider" class="quality-slider" min="1" max="100" value="80"
+                 aria-label="Image quality 1 to 100" aria-valuetext="80">
+          <div class="slider-labels" aria-hidden="true"><span>Smallest</span><span>Best quality</span></div>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label" for="format-select">Output Format</label>
+          <select id="format-select" class="setting-select">
+            <option value="original">Original (keep format)</option>
+            <option value="jpeg">JPEG — Photos &amp; web</option>
+            <option value="png">PNG — Lossless &amp; transparent</option>
+            <option value="webp">WebP — Smallest modern format</option>
+          </select>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label" for="target-kb">Target Size in KB <span style="font-weight:400;text-transform:none;font-size:0.8rem">(optional)</span></label>
+          <input type="number" id="target-kb" class="setting-input" placeholder="e.g. 100" min="1" max="50000"
+                 aria-label="Target output file size in kilobytes">
+        </div>
+
+        <div class="setting-group" id="png-colors-group" style="display:none">
+          <label class="setting-label" for="png-colors">PNG Colors: <span id="png-colors-val">256</span></label>
+          <input type="range" id="png-colors" class="quality-slider" min="16" max="256" value="256"
+                 aria-label="PNG color count for quantization (16 = most compressed, 256 = best quality)">
+          <div class="slider-labels" aria-hidden="true"><span>16 (smaller)</span><span>256 (better)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Settings: Convert ── -->
+    <div class="settings-panel" data-tab="convert" id="panel-convert" role="tabpanel" aria-labelledby="tab-convert">
+      <div class="settings-grid">
+        <div class="setting-group">
+          <label class="setting-label" for="format-select-convert">Convert To</label>
+          <select id="format-select-convert" class="setting-select">
+            <option value="jpeg">JPEG — Smaller photos</option>
+            <option value="png">PNG — Lossless + transparency</option>
+            <option value="webp">WebP — Best compression</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label class="setting-label" for="quality-slider-convert">Quality: <span id="quality-val-convert">85</span></label>
+          <input type="range" id="quality-slider-convert" class="quality-slider" min="1" max="100" value="85"
+                 aria-label="Output quality for JPEG and WebP conversion">
+          <p class="setting-note">PNG output is always lossless. Quality applies to JPEG and WebP only.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Settings: Resize ── -->
+    <div class="settings-panel" data-tab="resize" id="panel-resize" role="tabpanel" aria-labelledby="tab-resize">
+      <div class="settings-grid">
+        <div class="setting-group">
+          <label class="setting-label">Max Dimensions (pixels)</label>
+          <div class="input-row">
+            <input type="number" id="max-width" class="setting-input" placeholder="Width" min="1" max="16000"
+                   aria-label="Maximum width in pixels">
+            <span class="input-sep" aria-hidden="true">×</span>
+            <input type="number" id="max-height" class="setting-input" placeholder="Height" min="1" max="16000"
+                   aria-label="Maximum height in pixels">
+          </div>
+          <label class="aspect-toggle">
+            <input type="checkbox" id="aspect-ratio" checked aria-label="Keep original aspect ratio">
+            Keep aspect ratio
+          </label>
+          <p class="setting-note">Images are never upscaled. Leave a field blank to constrain only one dimension.</p>
+        </div>
+        <div class="setting-group">
+          <label class="setting-label" for="format-select-resize">Output Format</label>
+          <select id="format-select-resize" class="setting-select">
+            <option value="original">Original (keep format)</option>
+            <option value="jpeg">JPEG</option>
+            <option value="png">PNG</option>
+            <option value="webp">WebP</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label class="setting-label" for="quality-slider-resize">Quality: <span id="quality-val-resize">85</span></label>
+          <input type="range" id="quality-slider-resize" class="quality-slider" min="1" max="100" value="85"
+                 aria-label="Output quality for resized images">
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ RESULTS ═══ -->
+    <section id="results-section" class="hidden" aria-label="Processing results">
+
+      <!-- Privacy banner -->
+      <div class="privacy-banner" role="note" aria-label="Privacy notice">
+        <div class="privacy-banner-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <p class="privacy-banner-text">
+          <strong>Your images never leave your device.</strong> All processing happens locally using the Canvas API and Web Workers. Zero uploads. Zero tracking.
+        </p>
+      </div>
+
+      <div class="results-header">
+        <div class="results-title">
+          <span id="results-count">0</span> image(s) loaded
+        </div>
+        <div class="results-actions">
+          <button id="btn-clear-all" class="btn-sm btn-outline" disabled aria-label="Remove all images">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+            Clear All
+          </button>
+          <button id="btn-download-all" class="btn-sm btn-primary-sm" disabled aria-label="Download all processed images as a ZIP archive">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download All as ZIP
+          </button>
+        </div>
+      </div>
+
+      <div id="results-list" class="results-list" role="list" aria-label="Processed images" aria-live="polite"></div>
+    </section>
+
+  </div><!-- /container -->
+</main>
+
+<!-- ═══════════════════════════════════════════
+     HOW IT WORKS
+═══════════════════════════════════════════ -->
+<section class="how-section" id="how" aria-labelledby="how-heading">
+  <div class="container">
+    <h2 id="how-heading" class="section-title">How It Works</h2>
+    <p class="section-subtitle">Three steps. Nothing leaves your device.</p>
+    <div class="steps-grid">
+      <article class="step-card step-1">
+        <div class="step-num" aria-hidden="true">1</div>
+        <h3>Drop your images</h3>
+        <p>Drag and drop up to 50 images, click to browse, or paste from clipboard. JPG, PNG, WebP, GIF, and BMP are all supported, up to 50 MB each.</p>
+      </article>
+      <article class="step-card step-2">
+        <div class="step-num" aria-hidden="true">2</div>
+        <h3>Choose your settings</h3>
+        <p>Pick quality level (1–100), output format, resize dimensions, PNG color depth, or set an exact target file size in KB. Settings update live.</p>
+      </article>
+      <article class="step-card step-3">
+        <div class="step-num" aria-hidden="true">3</div>
+        <h3>Download results</h3>
+        <p>Download each file individually or get all images as a ZIP. Click any thumbnail to open the before/after comparison slider.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     RICH CONTENT (SEO, 800+ words)
+═══════════════════════════════════════════ -->
+<section class="content-section" id="guide" aria-labelledby="guide-heading">
+  <div class="container">
+    <div class="content-block" style="max-width:800px;margin:0 auto">
+      <h2 id="guide-heading">The Complete Guide to Image Compression in 2024</h2>
+      <p>Images are the single heaviest asset category on most websites — typically accounting for 50–60% of total page weight, according to HTTP Archive's Web Almanac. Compressing your images isn't a cosmetic concern; it directly affects Core Web Vitals (especially Largest Contentful Paint), Google Search rankings, bounce rates on mobile, and your hosting bandwidth costs. PixelSqueeze makes professional-grade compression accessible to everyone with zero software to install and zero files uploaded to any server.</p>
+
+      <h3>Understanding Image Formats: JPG vs PNG vs WebP</h3>
+      <p>Before compressing, it helps to know which format you're working with and why. The three dominant web formats each have distinct strengths:</p>
+
+      <table class="compare-table" role="table" aria-label="Comparison of JPG, PNG, and WebP image formats">
+        <thead>
+          <tr><th scope="col">Feature</th><th scope="col">JPEG</th><th scope="col">PNG</th><th scope="col">WebP</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Compression type</td><td>Lossy</td><td>Lossless</td><td>Lossy &amp; Lossless</td></tr>
+          <tr><td>Transparency (alpha)</td><td class="cross">✗ None</td><td class="check">✓ Full</td><td class="check">✓ Full</td></tr>
+          <tr><td>Best for photographs</td><td class="check">✓ Excellent</td><td class="cross">✗ Too large</td><td class="check">✓ Excellent</td></tr>
+          <tr><td>Best for logos &amp; icons</td><td class="cross">✗ Artifacts</td><td class="check">✓ Crisp</td><td class="check">✓ Good</td></tr>
+          <tr><td>File size (typical photo)</td><td>Medium</td><td>Large</td><td>Smallest</td></tr>
+          <tr><td>Browser support</td><td>Universal</td><td>Universal</td><td>96%+ (2024)</td></tr>
+          <tr><td>Savings vs JPEG</td><td>—</td><td>Much larger</td><td>25–35% smaller</td></tr>
+        </tbody>
+      </table>
+
+      <h3>When to Use Each Format</h3>
+      <p><strong>JPEG</strong> remains the workhorse of web photography. Product photos, blog feature images, backgrounds, and any image with rich gradients or photographic detail belong in JPEG format at quality 75–85. Below quality 70, visible block artifacts ("mosquito noise") start to appear around edges and text.</p>
+      <p><strong>PNG</strong> is the right choice whenever pixel-perfect accuracy or transparency matters. Logos, icons, UI screenshots, infographics with sharp text, and overlay graphics all benefit from PNG's lossless storage. Avoid PNG for photographs — a typical photo PNG is 5–10× larger than the equivalent JPEG.</p>
+      <p><strong>WebP</strong> is the clear winner for modern sites. Introduced by Google, WebP delivers JPEG-quality photos at 25–35% smaller file sizes and supports alpha transparency like PNG. As of 2024, over 96% of browsers support WebP. If you're building or optimizing a website, convert everything to WebP that your CMS allows.</p>
+
+      <h3>Real PNG Compression with Color Quantization</h3>
+      <p>Standard browser APIs cannot truly compress PNG files — <code>canvas.toBlob('image/png')</code> ignores the quality parameter and always produces full lossless output. PixelSqueeze solves this by using <strong>UPNG.js</strong>, a library that performs actual color quantization: reducing the PNG palette from 16 million colors down to as few as 16 colors. At 256 colors the output is visually identical to the original; at 32–64 colors you save an additional 40–70% while most images still look excellent. Use the PNG color depth slider to tune the tradeoff.</p>
+
+      <h3>Step-by-Step: Compress an Image Without Losing Quality</h3>
+      <ol class="guide-steps">
+        <li><strong>Start with the right format.</strong> If you have a photo PNG, convert it to WebP first using the Convert tab. This alone can cut file size by 60–80%.</li>
+        <li><strong>Set quality to 80 for photos.</strong> At 80, images are visually identical to the original at web display sizes. You'll typically save 40–65%.</li>
+        <li><strong>Resize before compressing.</strong> If a 4 K image is displayed at 800 px, resize it to 800 px first. Serving a 4 K photo scaled via CSS wastes 10–20× bandwidth.</li>
+        <li><strong>Use target size for specific limits.</strong> Email attachments, social media uploads, and CMS file limits often need exact KB targets. Type "100" in the Target Size field and PixelSqueeze binary-searches for the exact quality to hit that number.</li>
+        <li><strong>Check before/after.</strong> Click any thumbnail to open the draggable comparison slider. Drag left and right to inspect any part of the image before downloading.</li>
+        <li><strong>Batch download as ZIP.</strong> After processing all 50 files, one click zips and downloads them all.</li>
+      </ol>
+
+      <h3>Common Mistakes When Compressing Images</h3>
+      <p><strong>Double-compressing JPEG files:</strong> Every open-edit-save cycle of a JPEG degrades quality. If you need to re-edit an image, always work from the RAW or PNG original and compress once at export.</p>
+      <p><strong>Using PNG for photographs:</strong> A photographic PNG is enormous. Converting a 3 MB photo PNG to WebP at quality 80 can produce a file under 200 KB — a 93% reduction with no visible difference at screen resolution.</p>
+      <p><strong>Ignoring mobile bandwidth:</strong> Mobile users often download images over slower connections. Reducing image weight from 500 KB to 100 KB cuts load time by 80% on a 4G connection — that translates directly to lower bounce rates and higher conversions.</p>
+      <p><strong>Over-compressing:</strong> Quality below 60 introduces obvious blocking artifacts in JPEG and banding in WebP. Find the lowest quality where the image still looks acceptable and use it — don't just set quality to 50 by default.</p>
+
+      <h3>How PixelSqueeze Processes Images Technically</h3>
+      <p>When you drop files into PixelSqueeze, here's what happens under the hood: Each file is decoded using <code>createImageBitmap(file, { imageOrientation: 'from-image' })</code> — this API respects the EXIF orientation tag embedded in phone photos, so portrait shots taken vertically are not displayed sideways. The decoded bitmap is rendered onto an HTML Canvas or OffscreenCanvas at the target dimensions. If your browser supports OffscreenCanvas (Chrome, Edge, Firefox 105+), the heavy work runs inside a Web Worker on a separate CPU thread — the UI stays fully interactive while batches of images process in the background. On older browsers, PixelSqueeze falls back to chunked asynchronous processing on the main thread, yielding control to the browser between steps so the page never freezes. Your images exist only in browser memory and are never sent anywhere over the network.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FAQ
+═══════════════════════════════════════════ -->
+<section class="faq-section" id="faq" aria-labelledby="faq-heading">
+  <div class="container">
+    <h2 id="faq-heading" class="section-title">Frequently Asked Questions</h2>
+    <p class="section-subtitle">Everything you need to know about PixelSqueeze.</p>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-a1">
+          Is PixelSqueeze completely free?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer" id="faq-a1" role="region">
+          <p>Yes — 100% free. No subscriptions, no credit limits, no watermarks, and no account required. You can compress, convert, and resize unlimited images with no restrictions. PixelSqueeze is funded through non-intrusive advertising.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-a2">
+          Are my images private? Are they uploaded anywhere?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer" id="faq-a2" role="region">
+          <p>Absolutely private. All processing happens in your browser using the Canvas API and optional Web Workers. Not a single byte of image data is sent to any server — not even metadata or file names. This is enforced by the browser's security sandbox.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-a3">
+          Why does PNG compression show less savings than JPEG or WebP?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer" id="faq-a3" role="region">
+          <p>PNG uses lossless compression, so standard tools can't discard any pixel data. PixelSqueeze uses UPNG.js for real PNG color quantization — reducing the palette from millions to as few as 16 colors. Use the PNG color depth slider under the Compress tab to control how aggressive the compression is. For the biggest savings, convert PNG photographs to WebP or JPEG instead.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-a4">
+          What happens when I compress an animated GIF?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer" id="faq-a4" role="region">
+          <p>The Canvas API can only decode the first frame of an animated GIF. PixelSqueeze will warn you when a GIF is uploaded and process only frame 1. Full animated GIF optimization requires specialist tools. For animated content, consider converting to WebP (which supports animation) with a dedicated tool.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-a5">
+          My phone photos come out rotated — how do I fix this?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer" id="faq-a5" role="region">
+          <p>PixelSqueeze uses <code>createImageBitmap</code> with <code>imageOrientation: "from-image"</code>, which reads the EXIF rotation tag embedded in phone photos and applies it automatically. Your portrait shots will always come out upright. If you still see rotation issues, it may be a browser version that doesn't support this option — try Chrome or Firefox.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-a6">
+          Can I compress very large images (20 MB+)?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer" id="faq-a6" role="region">
+          <p>Yes, up to 50 MB per file. For images with dimensions above 16,000 px in either axis, PixelSqueeze automatically downscales before processing to avoid browser memory limits. On lower-end devices, very large files may process slowly — the per-file progress bar lets you track each image.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo" aria-label="PixelSqueeze home">
+          <div class="logo-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <span class="logo-text">PixelSqueeze</span>
+        </a>
+        <p>Free, private, browser-based image tools. No accounts. No uploads. No compromises.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul class="footer-links">
+          <li><a href="/compress-image-to-100kb.html">Compress to 100 KB</a></li>
+          <li><a href="/png-to-jpg.html">PNG to JPG</a></li>
+          <li><a href="/png-to-webp.html">PNG to WebP</a></li>
+          <li><a href="/jpg-to-png.html">JPG to PNG</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <ul class="footer-links">
+          <li><a href="/blog/index.html">Blog</a></li>
+          <li><a href="/blog/webp-vs-jpg.html">WebP vs JPG Guide</a></li>
+          <li><a href="/blog/compress-images-for-web.html">Compress for Web</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul class="footer-links">
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+          <li><a href="/disclaimer.html">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <p>Built and maintained by <a href="/about.html">Badr, cybersecurity graduate and front-end developer</a>.</p>
+    <div class="footer-bottom">
+      <p>© 2024 PixelSqueeze. Built by <a href="/about.html">Badr</a>. All image processing happens in your browser — nothing is uploaded.</p>
+      <p>Made with ♥ for a faster, more private web.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Before/After Comparison Modal -->
+<div id="comparison-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-box" tabindex="-1">
+    <div class="modal-header">
+      <h2 class="modal-title" id="modal-title">Before / After Comparison</h2>
+      <button id="modal-close" class="btn-close" aria-label="Close comparison modal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="comparison-container" class="comparison-container" aria-label="Drag the slider to compare original and compressed images">
+      <img id="comparison-after-img" class="comparison-img" src="" alt="Compressed version">
+      <div class="comparison-before">
+        <img id="comparison-before-img" src="" alt="Original version">
+      </div>
+      <div id="comparison-divider" class="comparison-divider" role="separator" aria-label="Comparison divider">
+        <div class="divider-handle" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="10 7 5 12 10 17"/><polyline points="14 7 19 12 14 17"/></svg>
+        </div>
+      </div>
+      <div class="comparison-labels" aria-hidden="true">
+        <span id="label-before" class="comparison-label">Original</span>
+        <span id="label-after" class="comparison-label">Compressed</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JSZip from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- FAQ JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Is PixelSqueeze completely free?","acceptedAnswer":{"@type":"Answer","text":"Yes, 100% free. No subscriptions, no credit limits, no watermarks, no account required."}},
+    {"@type":"Question","name":"Are my images private?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. All processing happens locally in your browser. No image data is ever sent to any server."}},
+    {"@type":"Question","name":"Why does PNG show less savings?","acceptedAnswer":{"@type":"Answer","text":"PNG uses lossless compression. PixelSqueeze uses UPNG.js for real color quantization. For maximum savings, convert photo PNGs to WebP."}},
+    {"@type":"Question","name":"Does PixelSqueeze support WebP?","acceptedAnswer":{"@type":"Answer","text":"Yes. PixelSqueeze can compress, convert to, and convert from WebP format."}},
+    {"@type":"Question","name":"What happens to animated GIFs?","acceptedAnswer":{"@type":"Answer","text":"Only the first frame is processed. You will see a warning when uploading a GIF."}}
+  ]
+}
+</script>
+
+<!-- PNG colors slider toggle -->
+<script>
+  (function() {
+    const fmt = document.getElementById('format-select');
+    const pngGroup = document.getElementById('png-colors-group');
+    function toggle() {
+      if (pngGroup) pngGroup.style.display = fmt?.value === 'png' ? '' : 'none';
+    }
+    fmt?.addEventListener('change', toggle);
+    toggle();
+  })();
+</script>
+
+<script type="module" src="/js/app.js"></script>
+</body>
+</html>

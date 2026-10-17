@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#4338ca"/>
+    </linearGradient>
+    <linearGradient id="acc" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+  <!-- Card background -->
+  <rect x="4" y="4" width="40" height="40" rx="10" fill="url(#bg)"/>
+  <!-- Image icon frame -->
+  <rect x="10" y="12" width="28" height="22" rx="3" fill="none" stroke="white" stroke-width="2" opacity="0.7"/>
+  <!-- Mountain / photo icon -->
+  <polyline points="10,30 18,22 24,28 29,24 38,34" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="17" cy="19" r="2" fill="white" opacity="0.9"/>
+  <!-- Compression arrows -->
+  <path d="M19 38 L24 34 L29 38" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="24" y1="34" x2="24" y2="43" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

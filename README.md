@@ -28,4 +28,3 @@ Check mobile and desktop layout; headings, titles, descriptions, canonical URLs,
 
 ## Manual test list
 Open each page directly and follow its links. Compress, resize, and convert sample JPEG, PNG, and WebP files; verify dimensions and transparency. Try a large image and an undecodable file. Test worker and main-thread fallback in browsers with and without OffscreenCanvas. Configure and submit the contact form. Request a nonexistent route and confirm the custom 404 page. Inspect sitemap and robots endpoints and social metadata.
-
