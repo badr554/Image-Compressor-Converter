@@ -16,11 +16,10 @@
   <meta name="twitter:image" content="https://pixelsqueeze.com/og-image.png">
   <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE"> -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <!-- AdSense script here -->
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts.css">
+  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@graph":[{"@type":"Person","name":"Badr","jobTitle":"Cybersecurity Graduate & Front-End Developer","url":"https://pixelsqueeze.com/about.html","description":"Creator of PixelSqueeze, a free browser-based image compression tool."},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"PixelSqueeze","item":"https://pixelsqueeze.com"},{"@type":"ListItem","position":2,"name":"About","item":"https://pixelsqueeze.com/about.html"}]}]}
   </script>
@@ -89,9 +88,9 @@
         <ul style="margin:1rem 0 1rem 1.5rem">
           <li style="margin-bottom:0.5rem;color:var(--text-secondary)"><strong>HTML, CSS, Vanilla JavaScript (ES Modules)</strong> — no framework, no build step, no node_modules. The entire site is static files that deploy in seconds.</li>
           <li style="margin-bottom:0.5rem;color:var(--text-secondary)"><strong>Web Workers + OffscreenCanvas</strong> — heavy image processing runs on a background thread, keeping the UI responsive during batch processing.</li>
-          <li style="margin-bottom:0.5rem;color:var(--text-secondary)"><strong>UPNG.js</strong> — for real PNG color quantization, loaded from cdnjs.</li>
-          <li style="margin-bottom:0.5rem;color:var(--text-secondary)"><strong>JSZip</strong> — for creating ZIP archives of batch-processed images, loaded from cdnjs. If unavailable, files download individually.</li>
-          <li style="margin-bottom:0.5rem;color:var(--text-secondary)"><strong>Inter (Google Fonts)</strong> — clean, modern typography. Loaded from Google's CDN with <code>display=swap</code> to avoid layout shift.</li>
+          <li style="margin-bottom:0.5rem;color:var(--text-secondary)"><strong>UPNG.js</strong> — for real PNG color quantization, self-hosted from this site.</li>
+          <li style="margin-bottom:0.5rem;color:var(--text-secondary)"><strong>JSZip</strong> — for creating ZIP archives of batch-processed images, self-hosted from this site. If unavailable, files download individually.</li>
+          <li style="margin-bottom:0.5rem;color:var(--text-secondary)"><strong>Inter (self-hosted)</strong> — clean, modern typography, served from this site with <code>font-display: swap</code>.</li>
         </ul>
       </section>
 
@@ -113,29 +112,14 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand"><a href="/" class="logo" aria-label="PixelSqueeze home"><div class="logo-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg></div><span class="logo-text">PixelSqueeze</span></a><p>Free browser-based image tools. No uploads. No accounts.</p></div>
-      <div class="footer-col"><h4>Tools</h4><ul class="footer-links"><li><a href="/compress-image-to-100kb.html">Compress to 100 KB</a></li><li><a href="/png-to-jpg.html">PNG to JPG</a></li><li><a href="/png-to-webp.html">PNG to WebP</a></li><li><a href="/jpg-to-png.html">JPG to PNG</a></li></ul></div>
-      <div class="footer-col"><h4>Learn</h4><ul class="footer-links"><li><a href="/blog/index.html">Blog</a></li><li><a href="/#faq">FAQ</a></li></ul></div>
+      <div class="footer-col"><h3 class="footer-col-heading">Tools</h3><ul class="footer-links"><li><a href="/compress-image-to-100kb.html">Compress to 100 KB</a></li><li><a href="/png-to-jpg.html">PNG to JPG</a></li><li><a href="/png-to-webp.html">PNG to WebP</a></li><li><a href="/jpg-to-png.html">JPG to PNG</a></li></ul></div>
+      <div class="footer-col"><h3 class="footer-col-heading">Learn</h3><ul class="footer-links"><li><a href="/blog/index.html">Blog</a></li><li><a href="/#faq">FAQ</a></li></ul></div>
       <div class="footer-col"><h4>Legal</h4><ul class="footer-links"><li><a href="/privacy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms</a></li><li><a href="/disclaimer.html">Disclaimer</a></li><li><a href="/contact.html">Contact</a></li></ul></div>
     </div>
     <div class="footer-bottom"><p>© 2024 PixelSqueeze. Built by Badr. All processing happens in your browser.</p></div>
   </div>
 </footer>
-<script type="module">
-  // Theme toggle only (no image processing on this page)
-  const t = document.getElementById('theme-toggle');
-  const m = document.getElementById('mobile-menu-btn');
-  const nav = document.getElementById('site-nav');
-  const saved = localStorage.getItem('ps-theme') || 'light';
-  document.documentElement.setAttribute('data-theme', saved);
-  t?.addEventListener('click', () => {
-    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('ps-theme', next);
-  });
-  m?.addEventListener('click', () => {
-    const open = nav?.classList.toggle('open');
-    m.setAttribute('aria-expanded', String(open));
-  });
-</script>
+
+<script src="/js/site.js" defer></script>
 </body>
 </html>

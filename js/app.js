@@ -11,6 +11,7 @@ const state = {
   activeTab: 'compress',
   debounceTimer: null,
   zipNamesUsed: new Set(),   // track ZIP filenames for dedup
+  singleNamesUsed: new Set(),
 };
 
 // ── DOM helpers ───────────────────────────────────────────────────────────────
@@ -99,6 +100,12 @@ pngColorsIn?.addEventListener('input', () => {
   el?.addEventListener('change', scheduleReprocess);
   el?.addEventListener('input', scheduleReprocess);
 });
+const pngColorGroup = $('#png-colors-group');
+function updatePngColorVisibility() {
+  if (pngColorGroup) pngColorGroup.style.display = formatSelect?.value === 'png' ? '' : 'none';
+}
+formatSelect?.addEventListener('change', updatePngColorVisibility);
+updatePngColorVisibility();
 
 function scheduleReprocess() {
   if (state.files.length === 0) return;
@@ -214,47 +221,53 @@ function createCard(entry) {
   card.className = 'result-card processing';
   card.dataset.id = entry.id;
   card.setAttribute('role', 'listitem');
-
   card.innerHTML = `
-    <img class="result-thumb" src="" alt="Preview of ${entry.file.name}" loading="lazy">
+    <img class="result-thumb" src="" alt="" loading="lazy">
     <div class="result-info">
-      <div class="result-name" title="${entry.file.name}">${entry.file.name}</div>
+      <div class="result-name"></div>
       <div class="result-sizes">
-        <span class="size-original">${formatBytes(entry.file.size)}</span>
+        <span class="size-original"></span>
         <span class="size-arrow" aria-hidden="true">→</span>
         <span class="size-new" aria-live="polite">Processing…</span>
       </div>
-      <div class="result-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Processing ${entry.file.name}">
+      <div class="result-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
         <div class="result-progress-bar" style="width:0%"></div>
       </div>
     </div>
     <div class="result-card-actions">
-      <button class="btn-icon btn-preview" title="Compare before/after" aria-label="Open before/after comparison for ${entry.file.name}" disabled>
+      <button class="btn-icon btn-preview" title="Compare before/after" aria-label="Open before/after comparison" disabled>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </button>
-      <button class="btn-icon btn-download" title="Download" aria-label="Download ${entry.file.name}" disabled>
+      <button class="btn-icon btn-download" title="Download" aria-label="Download processed image" disabled>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       </button>
-      <button class="btn-icon danger btn-remove" title="Remove" aria-label="Remove ${entry.file.name}">
+      <button class="btn-icon danger btn-remove" title="Remove" aria-label="Remove image">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
   `;
 
-  // Thumb from original
+  const filename = entry.file.name;
+  const nameNode = card.querySelector('.result-name');
   const thumb = card.querySelector('.result-thumb');
+  nameNode.textContent = filename;
+  nameNode.title = filename;
+  card.querySelector('.size-original').textContent = formatBytes(entry.file.size);
+  card.querySelector('.result-progress').setAttribute('aria-label', `Processing ${filename}`);
+  card.querySelector('.btn-preview').setAttribute('aria-label', `Open before/after comparison for ${filename}`);
+  card.querySelector('.btn-download').setAttribute('aria-label', `Download ${filename}`);
+  card.querySelector('.btn-remove').setAttribute('aria-label', `Remove ${filename}`);
+
   const thumbUrl = URL.createObjectURL(entry.file);
+  thumb.alt = `Preview of ${filename}`;
   thumb.src = thumbUrl;
   entry._thumbUrl = thumbUrl;
 
-  // Events
   card.querySelector('.btn-preview').addEventListener('click', () => openComparison(entry));
   card.querySelector('.btn-remove').addEventListener('click', () => removeFile(entry.id));
   card.querySelector('.btn-download').addEventListener('click', () => downloadSingle(entry));
-
   return card;
 }
-
 function updateCardProgress(entry, pct) {
   const bar = entry.card?.querySelector('.result-progress-bar');
   const wrap = entry.card?.querySelector('.result-progress');
@@ -277,13 +290,11 @@ function updateCardDone(entry) {
   const savedPct = ((originalSize - newSize) / originalSize * 100).toFixed(1);
   const bigger   = newSize >= originalSize;
 
-  if (keptOriginal) {
-    sizeNew.innerHTML = `${formatBytes(originalSize)} <span class="badge-saved badge-larger">Already optimized</span>`;
-  } else if (bigger) {
-    sizeNew.innerHTML = `${formatBytes(newSize)} <span class="badge-saved badge-larger">Kept original</span>`;
-  } else {
-    sizeNew.innerHTML = `${formatBytes(newSize)} <span class="badge-saved">↓ ${savedPct}% saved</span>`;
-  }
+  const badge = document.createElement('span');
+  badge.className = `badge-saved${keptOriginal || bigger ? ' badge-larger' : ''}`;
+  badge.textContent = keptOriginal ? 'Already optimized' : bigger ? 'Output larger' : `↓ ${savedPct}% saved`;
+  sizeNew.textContent = formatBytes(keptOriginal ? originalSize : newSize) + ' ';
+  sizeNew.appendChild(badge);
 
   const ratio = keptOriginal || bigger ? 0 : parseFloat(savedPct);
   bar.style.width = Math.min(ratio, 100) + '%';
@@ -303,8 +314,10 @@ function updateCardError(entry, msg) {
   const card = entry.card;
   if (!card) return;
   card.classList.remove('processing');
-  card.querySelector('.size-new').innerHTML =
-    `<span style="color:var(--rose-500);font-size:0.8rem">${msg}</span>`;
+  const status = card.querySelector('.size-new');
+  status.textContent = msg;
+  status.style.color = 'var(--rose-500)';
+  status.style.fontSize = '0.8rem';
 }
 
 // ── Process all ───────────────────────────────────────────────────────────────
@@ -353,6 +366,7 @@ async function processSingle(entry, opts) {
     );
     entry.result = result;
     updateCardDone(entry);
+    if (result.warning) showToast(result.warning, 'warning', 7000);
   } catch (err) {
     updateCardError(entry, err.message || 'Processing failed. Try a different file.');
   }
@@ -456,6 +470,8 @@ function downloadAllIndividually(files) {
 function clearAll() {
   state.files.forEach(freeEntry);
   state.files = [];
+  state.singleNamesUsed.clear();
+  state.zipNamesUsed.clear();
   if (resultsList) resultsList.innerHTML = '';
   resultsSection?.classList.add('hidden');
   updateBulkButtons();
@@ -486,7 +502,7 @@ function downloadSingle(entry) {
     entry.file.name,
     entry.result.outputMime,
     entry.result.mode || state.activeTab,
-    new Set()
+    state.singleNamesUsed
   );
   triggerDownload(entry.result.blob, fname);
 }
@@ -594,7 +610,11 @@ function showToast(msg, type = '', duration = 3500) {
 
 // ── Presets from page (for SEO tool pages) ────────────────────────────────────
 function applyPresets() {
-  const presets = window.PS_PRESETS;
+  let presets = window.PS_PRESETS;
+  if (!presets && document.body.dataset.psPresets) {
+    try { presets = JSON.parse(document.body.dataset.psPresets); }
+    catch { presets = null; }
+  }
   if (!presets) return;
 
   if (presets.tab) {

@@ -6,7 +6,8 @@ PixelSqueeze is a static browser-based image compression, conversion, and resizi
 - Root HTML files: tools and site information
 - `blog/`: article listing and editorial guides
 - `css/style.css`: shared design system
-- `js/`: interface, image processing, and worker code
+- `js/`: interface, image processing, worker code, and self-hosted pinned vendor libraries (`pako` 2.1.0, `UPNG.js` 2.1.0, `JSZip` 3.10.1)
+- `fonts/` and `css/fonts.css`: self-hosted Inter webfont and its font-face declaration
 - `favicon.svg`, `og-image.png`: site identity and social preview
 - `sitemap.xml`, `robots.txt`, `ads.txt`, `vercel.json`: crawler and deployment configuration
 
@@ -27,4 +28,4 @@ PixelSqueeze is a static browser-based image compression, conversion, and resizi
 Check mobile and desktop layout; headings, titles, descriptions, canonical URLs, and image alt text; image dimensions and transfer size; keyboard navigation, visible focus, contrast, and link labels; console errors and failed requests; production Core Web Vitals; and policy text against the third-party scripts actually enabled.
 
 ## Manual test list
-Open each page directly and follow its links. Compress, resize, and convert sample JPEG, PNG, and WebP files; verify dimensions and transparency. Try a large image and an undecodable file. Test worker and main-thread fallback in browsers with and without OffscreenCanvas. Configure and submit the contact form. Request a nonexistent route and confirm the custom 404 page. Inspect sitemap and robots endpoints and social metadata.
+Open each page directly and follow its links. Compress, resize, and convert sample JPEG, PNG, and WebP files; verify dimensions and transparency. Try a large image and an undecodable file. Test worker and main-thread fallback in browsers with and without OffscreenCanvas. Configure and submit the contact form. Request a nonexistent route and confirm the custom 404 page. Inspect sitemap and robots endpoints and social metadata. The browser QA harness also covers GIF first-frame conversion, EXIF rotation, ZIP output, 50-file cleanup, target-size compression and malicious filenames.

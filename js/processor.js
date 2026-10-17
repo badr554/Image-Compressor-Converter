@@ -6,7 +6,9 @@
  */
 
 const WORKER_URL = new URL('/js/worker.js', location.href).href;
-const MAX_DIMENSION = 16000;
+const MAX_CANVAS_SIDE = 16000;
+const MAX_DESKTOP_PIXELS = 32_000_000;
+const MAX_MOBILE_SAFARI_PIXELS = 16_000_000;
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
 
 // Check for OffscreenCanvas support
@@ -32,12 +34,17 @@ function getWorker() {
   try {
     worker = new Worker(WORKER_URL);
     worker.onmessage = handleWorkerMessage;
-    worker.onerror = (err) => {
-      console.warn('PixelSqueeze worker error, falling back to main thread:', err);
-      // Reject all pending and disable worker
-      pendingCallbacks.forEach(({ reject }) => reject(new Error('Worker failed')));
-      pendingCallbacks.clear();
+    worker.onerror = (event) => {
+      event.preventDefault?.();
+      const failedWorker = worker;
       worker = null;
+      failedWorker?.terminate();
+      const jobs = [...pendingCallbacks.entries()];
+      pendingCallbacks.clear();
+      jobs.forEach(([, job]) => {
+        processOnMainThread(job.file, job.options, job.onProgress)
+          .then(job.resolve, job.reject);
+      });
     };
     return worker;
   } catch (e) {
@@ -71,13 +78,19 @@ function handleWorkerMessage(e) {
  * @returns {Promise<{blob, originalSize, newSize, outputMime, width, height, keptOriginal}>}
  */
 export async function processFile(file, options, onProgress = () => {}) {
+  if (file.size > MAX_FILE_SIZE) throw new Error('This image is larger than the 50 MB processing limit.');
   const w = getWorker();
 
   if (w) {
     const id = ++callbackId;
     return new Promise((resolve, reject) => {
-      pendingCallbacks.set(id, { resolve, reject, onProgress });
-      w.postMessage({ id, file, options });
+      pendingCallbacks.set(id, { resolve, reject, onProgress, file, options });
+      try {
+        w.postMessage({ id, file, options });
+      } catch {
+        pendingCallbacks.delete(id);
+        processOnMainThread(file, options, onProgress).then(resolve, reject);
+      }
     });
   }
 
@@ -116,13 +129,15 @@ async function processOnMainThread(file, options, onProgress) {
   onProgress(30);
 
   let { width, height } = bitmap;
-
-  // Cap large images
-  if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
-    const ratio = Math.min(MAX_DIMENSION / width, MAX_DIMENSION / height);
-    width = Math.round(width * ratio);
-    height = Math.round(height * ratio);
+  const sourceWidth = width;
+  const sourceHeight = height;
+  const pixelBudget = getPixelBudget();
+  const pixelScale = Math.min(1, MAX_CANVAS_SIDE / width, MAX_CANVAS_SIDE / height, Math.sqrt(pixelBudget / (width * height)));
+  if (pixelScale < 1) {
+    width = Math.max(1, Math.floor(width * pixelScale));
+    height = Math.max(1, Math.floor(height * pixelScale));
   }
+  const wasPixelCapped = width !== sourceWidth || height !== sourceHeight;
 
   if (maxWidth || maxHeight) {
     ({ width, height } = computeDimensions(width, height, maxWidth, maxHeight, keepAspectRatio));
@@ -138,18 +153,25 @@ async function processOnMainThread(file, options, onProgress) {
     ctx.fillRect(0, 0, width, height);
   }
 
-  ctx.drawImage(bitmap, 0, 0, width, height);
-  bitmap.close(); // release memory
+  try {
+    ctx.drawImage(bitmap, 0, 0, width, height);
+  } finally {
+    bitmap.close(); // release decoded bitmap memory even if drawing fails
+  }
 
   await yieldToMain();
   onProgress(60);
 
   let blob;
+  let warning = wasPixelCapped
+    ? `This image exceeded the safe ${Math.round(pixelBudget / 1_000_000)} MP processing limit and was resized to ${width} × ${height} pixels.`
+    : '';
 
   if (targetKB && outputMime !== 'image/png') {
-    blob = await binarySearchMainThread(canvas, outputMime, targetKB);
+    const targetResult = await fitTargetMainThread(canvas, outputMime, targetKB);
+    blob = targetResult.blob;
+    if (!targetResult.met) warning = `${warning} The requested ${targetKB} KB limit could not be reached; this output is ${formatBytes(blob.size)}.`.trim();
   } else if (outputMime === 'image/png') {
-    // UPNG quantizes PNG colors on the main thread when its CDN libraries load.
     try {
       const upng = await loadUPNG();
       if (upng && typeof upng.encode === 'function') {
@@ -157,10 +179,11 @@ async function processOnMainThread(file, options, onProgress) {
         const encoded = upng.encode([imageData.data.buffer], width, height, pngColors);
         blob = new Blob([encoded], { type: 'image/png' });
       }
-    } catch (err) {
-      console.warn('UPNG unavailable in main-thread fallback; using canvas PNG encoder:', err);
+    } catch {
+      // The same-origin UPNG bundle is optional; canvas remains the PNG fallback.
     }
     if (!blob) blob = await canvasToBlob(canvas, 'image/png', undefined);
+    if (targetKB) warning = `${warning} Target size is supported for JPEG and WebP; PNG output may exceed the target.`.trim();
   } else {
     blob = await canvasToBlob(canvas, outputMime, quality / 100);
   }
@@ -168,7 +191,7 @@ async function processOnMainThread(file, options, onProgress) {
   onProgress(90);
 
   // Keep original if output is larger (compress-only mode)
-  if (blob.size >= file.size && format === 'original' && !targetKB && !maxWidth && !maxHeight) {
+  if (blob.size >= file.size && format === 'original' && outputMime === inputMime && inputMime !== 'image/gif' && !targetKB && !maxWidth && !maxHeight) {
     const origBlob = file.slice(0, file.size, file.type);
     return {
       blob: origBlob,
@@ -178,10 +201,12 @@ async function processOnMainThread(file, options, onProgress) {
       width,
       height,
       keptOriginal: true,
+      mode,
+      warning,
     };
   }
 
-  return { blob, originalSize: file.size, newSize: blob.size, outputMime, width, height, keptOriginal: false };
+  return { blob, originalSize: file.size, newSize: blob.size, outputMime, width, height, keptOriginal: false, mode, warning };
 }
 
 
@@ -201,11 +226,10 @@ function loadUPNG() {
     });
 
     try {
-      await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js');
-      await loadScript('https://cdn.jsdelivr.net/npm/upng-js@2.1.0/UPNG.js');
+      await loadScript('/js/vendor/pako.min.js');
+      await loadScript('/js/vendor/UPNG.js');
       return window.UPNG && typeof window.UPNG.encode === 'function' ? window.UPNG : null;
     } catch (error) {
-      console.warn('Could not load UPNG dependencies:', error);
       return null;
     }
   })();
@@ -213,11 +237,34 @@ function loadUPNG() {
   return upngLoadPromise;
 }
 
-// ── Binary search quality (main thread) ───────────────────────────────────────
+// Reduce quality first, then dimensions if needed, until a JPEG/WebP target fits.
+async function fitTargetMainThread(sourceCanvas, mime, targetKB) {
+  const targetBytes = targetKB * 1024;
+  let working = sourceCanvas;
+  let blob = null;
+
+  for (let attempt = 0; attempt < 12; attempt++) {
+    blob = await binarySearchMainThread(working, mime, targetKB);
+    if (blob.size <= targetBytes) return { blob, met: true };
+    if (working.width <= 1 && working.height <= 1) break;
+
+    const scale = Math.min(0.85, Math.sqrt(targetBytes / blob.size) * 0.92);
+    const width = Math.max(1, Math.floor(working.width * scale));
+    const height = Math.max(1, Math.floor(working.height * scale));
+    if (width === working.width && height === working.height) break;
+    const smaller = document.createElement('canvas');
+    smaller.width = width;
+    smaller.height = height;
+    smaller.getContext('2d').drawImage(sourceCanvas, 0, 0, width, height);
+    working = smaller;
+  }
+
+  return { blob, met: Boolean(blob && blob.size <= targetBytes) };
+}
+
 async function binarySearchMainThread(canvas, mime, targetKB) {
   const targetBytes = targetKB * 1024;
   let lo = 1, hi = 92, bestBlob = null;
-
   let blob = await canvasToBlob(canvas, mime, hi / 100);
   if (blob.size <= targetBytes) return blob;
 
@@ -242,6 +289,13 @@ function canvasToBlob(canvas, type, quality) {
       quality
     );
   });
+}
+
+
+function getPixelBudget() {
+  const ua = navigator.userAgent || '';
+  const mobileSafari = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1);
+  return mobileSafari ? MAX_MOBILE_SAFARI_PIXELS : MAX_DESKTOP_PIXELS;
 }
 
 function resolveOutputMime(format, inputMime) {
@@ -313,3 +367,4 @@ export function getOutputFilename(originalName, outputMime, mode, usedNames = ne
 }
 
 export { MAX_FILE_SIZE };
+

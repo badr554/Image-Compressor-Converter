@@ -2,8 +2,6 @@
    PixelSqueeze — Design System & Global Styles
    ========================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
 /* ── CSS Custom Properties ── */
 :root {
   /* Colors – Light Mode */
@@ -14,7 +12,7 @@
 
   --text-primary:   #0f0e17;
   --text-secondary: #4a4a6a;
-  --text-muted:     #7b7b9a;
+  --text-muted:     #6b6b85;
   --text-inverse:   #ffffff;
 
   --indigo-50:  #eef2ff;
@@ -98,7 +96,7 @@ body {
 }
 
 img { max-width: 100%; display: block; }
-a { color: var(--indigo-500); text-decoration: none; }
+a { color: var(--indigo-700); text-decoration: none; }
 a:hover { color: var(--indigo-600); }
 button { cursor: pointer; font-family: inherit; border: none; outline: none; }
 input, select, textarea { font-family: inherit; }
@@ -1456,7 +1454,7 @@ p { color: var(--text-secondary); }
   line-height: 1.7;
 }
 
-.footer-col h4 {
+.footer-col h4, .footer-col-heading {
   font-size: 0.8125rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -1760,3 +1758,13 @@ p { color: var(--text-secondary); }
 
 .toast.success { background: var(--emerald-600); }
 .toast.error   { background: var(--rose-500); }
+
+/* Keep wide data tables usable on narrow screens without widening the page. */
+.table-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; }
+.table-scroll table { min-width: 540px; }
+
+.article-body a, .footer-bottom a { text-decoration: underline; text-underline-offset: 0.15em; }
+#quality-val, #quality-val-convert, #quality-val-resize, #png-colors-val { color: var(--indigo-700); }
+[data-theme="dark"] { --text-muted: #a8a8c8; }
+
+.setting-label span { color: var(--indigo-700); }

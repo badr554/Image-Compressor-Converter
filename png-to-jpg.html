@@ -18,11 +18,10 @@
   <!-- Google Search Console verification -->
   <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE"> -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <!-- AdSense script here -->
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts.css">
+  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -32,11 +31,8 @@
     ]
   }
   </script>
-  <script>
-    window.PS_PRESETS = { tab: 'convert', format: 'jpeg', quality: 85 };
-  </script>
 </head>
-<body>
+<body data-ps-presets='{"tab":"convert","format":"jpeg","quality":85}'>
 
 <header class="site-header" role="banner">
   <div class="container">
@@ -117,8 +113,8 @@
 
     <div id="drop-zone" class="drop-zone" role="button" tabindex="0" aria-label="Drop PNG images here or press Enter to choose files" style="max-width:680px;margin:2rem auto">
       <div class="drop-zone-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-      <p class="drop-zone-title">Drop PNG files here</p>
-      <p class="drop-zone-sub">PNG → JPG conversion preset applied automatically</p>
+      <p id="drop-zone-title" class="drop-zone-title">Drop PNG files here</p>
+      <p id="drop-zone-hint" class="drop-zone-sub">PNG → JPG conversion preset applied automatically</p>
       <button class="btn-choose" id="btn-choose" type="button">Choose PNG Files</button>
       <p class="drop-zone-formats">Supports JPG · PNG · WebP · GIF · BMP &nbsp;|&nbsp; Up to 50 files · 50 MB each</p>
     </div>
@@ -157,7 +153,7 @@
 
       <h3>Choosing the Right JPEG Quality for PNG Conversion</h3>
       <p>The quality slider (1–100) controls how much data the JPEG encoder discards. Here's a practical guide to choosing the right level:</p>
-      <table class="compare-table" aria-label="JPEG quality level guide">
+      <div class="table-scroll" role="region" tabindex="0" aria-label="Scrollable data table"><table class="compare-table" aria-label="JPEG quality level guide">
         <thead><tr><th>Quality</th><th>Visual result</th><th>Typical use case</th><th>File size vs original PNG</th></tr></thead>
         <tbody>
           <tr><td>90–95</td><td>Indistinguishable from original</td><td>Professional print, archiving</td><td>50–70% smaller</td></tr>
@@ -166,7 +162,7 @@
           <tr><td>60–69</td><td>Acceptable at small sizes</td><td>Email previews, low-bandwidth</td><td>85–93% smaller</td></tr>
           <tr><td>Below 60</td><td>Visible blocking artifacts</td><td>Not recommended for display</td><td>90%+ smaller</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <p>For most web use cases, quality 80 is the sweet spot. At 80, a converted PNG looks identical to the original at any normal browser zoom level. If you're preparing images for social media platforms like Instagram or LinkedIn, they re-compress your uploads anyway — so quality 85–90 is a good target to leave headroom for their own compression pipeline.</p>
 
       <h3>Step-by-Step: Convert PNG to JPG with PixelSqueeze</h3>
@@ -195,8 +191,8 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand"><a href="/" class="logo" aria-label="PixelSqueeze home"><div class="logo-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg></div><span class="logo-text">PixelSqueeze</span></a><p>Free, private, browser-based image tools. No accounts. No uploads.</p></div>
-      <div class="footer-col"><h4>Tools</h4><ul class="footer-links"><li><a href="/compress-image-to-100kb.html">Compress to 100 KB</a></li><li><a href="/png-to-jpg.html">PNG to JPG</a></li><li><a href="/png-to-webp.html">PNG to WebP</a></li><li><a href="/jpg-to-png.html">JPG to PNG</a></li></ul></div>
-      <div class="footer-col"><h4>Learn</h4><ul class="footer-links"><li><a href="/blog/index.html">Blog</a></li><li><a href="/blog/webp-vs-jpg.html">WebP vs JPG</a></li><li><a href="/#faq">FAQ</a></li></ul></div>
+      <div class="footer-col"><h3 class="footer-col-heading">Tools</h3><ul class="footer-links"><li><a href="/compress-image-to-100kb.html">Compress to 100 KB</a></li><li><a href="/png-to-jpg.html">PNG to JPG</a></li><li><a href="/png-to-webp.html">PNG to WebP</a></li><li><a href="/jpg-to-png.html">JPG to PNG</a></li></ul></div>
+      <div class="footer-col"><h3 class="footer-col-heading">Learn</h3><ul class="footer-links"><li><a href="/blog/index.html">Blog</a></li><li><a href="/blog/webp-vs-jpg.html">WebP vs JPG</a></li><li><a href="/#faq">FAQ</a></li></ul></div>
       <div class="footer-col"><h4>Legal</h4><ul class="footer-links"><li><a href="/privacy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms</a></li><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li></ul></div>
     </div>
     <div class="footer-bottom"><p>© 2024 PixelSqueeze. Built by <a href="/about.html">Badr</a>. All processing happens in your browser.</p></div>
@@ -210,7 +206,7 @@
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" crossorigin="anonymous"></script>
+<script src="/js/vendor/jszip.min.js"></script>
 <script type="module" src="/js/app.js"></script>
 </body>
 </html>

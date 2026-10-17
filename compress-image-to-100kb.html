@@ -16,17 +16,16 @@
   <meta name="twitter:image" content="https://pixelsqueeze.com/og-image.png">
   <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE"> -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <!-- AdSense script here -->
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts.css">
+  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Compress Image to 100KB by PixelSqueeze","url":"https://pixelsqueeze.com/compress-image-to-100kb.html","description":"Free tool to compress any image to a specific KB target size in your browser.","applicationCategory":"MultimediaApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"PixelSqueeze","item":"https://pixelsqueeze.com"},{"@type":"ListItem","position":2,"name":"Compress Image to 100KB","item":"https://pixelsqueeze.com/compress-image-to-100kb.html"}]}]}
   </script>
-  <script>window.PS_PRESETS = { tab: 'compress', format: 'jpeg', quality: 80, targetKB: 100 };</script>
+  
 </head>
-<body>
+<body data-ps-presets='{"tab":"compress","format":"jpeg","quality":80,"targetKB":100}'>
 <header class="site-header" role="banner">
   <div class="container">
     <a href="/" class="logo" aria-label="PixelSqueeze home"><div class="logo-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/><circle cx="16.5" cy="15" r="2"/></svg></div><span class="logo-text">PixelSqueeze</span></a>
@@ -61,10 +60,10 @@
     <div class="settings-panel" data-tab="convert" id="panel-convert" role="tabpanel" aria-labelledby="tab-convert"><div class="settings-grid"><div class="setting-group"><label class="setting-label" for="format-select-convert">Convert To</label><select id="format-select-convert" class="setting-select"><option value="jpeg">JPEG</option><option value="png">PNG</option><option value="webp">WebP</option></select></div><div class="setting-group"><label class="setting-label" for="quality-slider-convert">Quality: <span id="quality-val-convert">85</span></label><input type="range" id="quality-slider-convert" class="quality-slider" min="1" max="100" value="85"></div></div></div>
     <div class="settings-panel" data-tab="resize" id="panel-resize" role="tabpanel" aria-labelledby="tab-resize"><div class="settings-grid"><div class="setting-group"><label class="setting-label">Max Dimensions</label><div class="input-row"><input type="number" id="max-width" class="setting-input" placeholder="Width" min="1" aria-label="Max width"><span class="input-sep" aria-hidden="true">×</span><input type="number" id="max-height" class="setting-input" placeholder="Height" min="1" aria-label="Max height"></div><label class="aspect-toggle"><input type="checkbox" id="aspect-ratio" checked> Keep aspect ratio</label></div><div class="setting-group"><label class="setting-label" for="format-select-resize">Format</label><select id="format-select-resize" class="setting-select"><option value="original">Original</option><option value="jpeg">JPEG</option><option value="png">PNG</option><option value="webp">WebP</option></select></div><div class="setting-group"><label class="setting-label" for="quality-slider-resize">Quality: <span id="quality-val-resize">85</span></label><input type="range" id="quality-slider-resize" class="quality-slider" min="1" max="100" value="85"></div></div></div>
 
-    <div id="drop-zone" class="drop-zone" role="button" tabindex="0" aria-label="Drop images here or press Enter to choose files" style="max-width:680px;margin:2rem auto">
+    <div id="drop-zone" class="drop-zone" role="button" tabindex="0" aria-labelledby="drop-zone-title" style="max-width:680px;margin:2rem auto">
       <div class="drop-zone-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-      <p class="drop-zone-title">Drop images here to compress to 100 KB</p>
-      <p class="drop-zone-sub">Target size is pre-set to 100 KB — change it anytime above</p>
+      <p id="drop-zone-title" class="drop-zone-title">Drop images here to compress to 100 KB</p>
+      <p id="drop-zone-hint" class="drop-zone-sub">Target size is pre-set to 100 KB — change it anytime above</p>
       <button class="btn-choose" id="btn-choose" type="button">Choose Images</button>
       <p class="drop-zone-formats">JPG · PNG · WebP · GIF · BMP &nbsp;|&nbsp; Up to 50 files · 50 MB each</p>
     </div>
@@ -89,7 +88,7 @@
       <p>PixelSqueeze's target-size feature solves this with a binary search algorithm. It works like this: start with a high quality guess (92), encode, check if the output is over 100 KB. If yes, reduce quality toward 46, encode again, check again. The algorithm repeats up to 12 iterations, each time halving the remaining search space, until it converges on the highest quality level that still hits your target. For most images this takes under 2 seconds and hits within 1–2 KB of the target.</p>
 
       <h3>Common Target Sizes and When to Use Them</h3>
-      <table class="compare-table" aria-label="Common image size targets">
+      <div class="table-scroll" role="region" tabindex="0" aria-label="Scrollable data table"><table class="compare-table" aria-label="Common image size targets">
         <thead><tr><th>Target Size</th><th>Common use case</th><th>Recommended format</th></tr></thead>
         <tbody>
           <tr><td>50 KB</td><td>Email attachment thumbnails, government form photo uploads</td><td>JPEG</td></tr>
@@ -98,7 +97,7 @@
           <tr><td>500 KB</td><td>E-commerce product images, print-ready web graphics</td><td>JPEG or WebP</td></tr>
           <tr><td>1 MB</td><td>High-quality web photos, portfolio images</td><td>WebP or JPEG 90+</td></tr>
         </tbody>
-      </table>
+      </table></div>
 
       <h3>Tips for Getting the Best Quality at 100 KB</h3>
       <p><strong>Use JPEG or WebP, not PNG.</strong> PNG compression is lossless, so reaching 100 KB with PNG is only possible if the original image was already small. For photographic content, use JPEG (quality compressed automatically) or WebP (25–35% smaller than JPEG at the same quality). The target-size feature only works with JPEG and WebP — PNG is always lossless.</p>
@@ -119,15 +118,15 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand"><a href="/" class="logo" aria-label="PixelSqueeze home"><div class="logo-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg></div><span class="logo-text">PixelSqueeze</span></a><p>Free browser-based image tools. No uploads. No accounts.</p></div>
-      <div class="footer-col"><h4>Tools</h4><ul class="footer-links"><li><a href="/compress-image-to-100kb.html">Compress to 100 KB</a></li><li><a href="/png-to-jpg.html">PNG to JPG</a></li><li><a href="/png-to-webp.html">PNG to WebP</a></li><li><a href="/jpg-to-png.html">JPG to PNG</a></li></ul></div>
-      <div class="footer-col"><h4>Learn</h4><ul class="footer-links"><li><a href="/blog/index.html">Blog</a></li><li><a href="/blog/reduce-image-size-quality.html">Reduce Image Size</a></li><li><a href="/#faq">FAQ</a></li></ul></div>
+      <div class="footer-col"><h3 class="footer-col-heading">Tools</h3><ul class="footer-links"><li><a href="/compress-image-to-100kb.html">Compress to 100 KB</a></li><li><a href="/png-to-jpg.html">PNG to JPG</a></li><li><a href="/png-to-webp.html">PNG to WebP</a></li><li><a href="/jpg-to-png.html">JPG to PNG</a></li></ul></div>
+      <div class="footer-col"><h3 class="footer-col-heading">Learn</h3><ul class="footer-links"><li><a href="/blog/index.html">Blog</a></li><li><a href="/blog/reduce-image-size-quality.html">Reduce Image Size</a></li><li><a href="/#faq">FAQ</a></li></ul></div>
       <div class="footer-col"><h4>Legal</h4><ul class="footer-links"><li><a href="/privacy.html">Privacy</a></li><li><a href="/terms.html">Terms</a></li><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li></ul></div>
     </div>
     <div class="footer-bottom"><p>© 2024 PixelSqueeze. Built by <a href="/about.html">Badr</a>.</p></div>
   </div>
 </footer>
 <div id="comparison-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-box" tabindex="-1"><div class="modal-header"><h2 class="modal-title" id="modal-title">Before / After</h2><button id="modal-close" class="btn-close" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div id="comparison-container" class="comparison-container"><img id="comparison-after-img" class="comparison-img" src="" alt="Compressed output"><div class="comparison-before"><img id="comparison-before-img" src="" alt="Original image"></div><div id="comparison-divider" class="comparison-divider"><div class="divider-handle" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="10 7 5 12 10 17"/><polyline points="14 7 19 12 14 17"/></svg></div></div><div class="comparison-labels" aria-hidden="true"><span id="label-before" class="comparison-label">Original</span><span id="label-after" class="comparison-label">Compressed</span></div></div></div></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" crossorigin="anonymous"></script>
+<script src="/js/vendor/jszip.min.js"></script>
 <script type="module" src="/js/app.js"></script>
 </body>
 </html>

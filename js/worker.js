@@ -8,15 +8,17 @@
 // Load pako before UPNG for PNG encoding support.
 try {
   importScripts(
-    'https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js',
-    'https://cdn.jsdelivr.net/npm/upng-js@2.1.0/UPNG.js'
+    '/js/vendor/pako.min.js',
+    '/js/vendor/UPNG.js'
   );
 } catch (e) {
   // If either dependency is unavailable, PNG uses the canvas fallback.
   self.UPNG = null;
 }
 
-const MAX_DIMENSION = 16000;
+const MAX_CANVAS_SIDE = 16000;
+const MAX_DESKTOP_PIXELS = 32_000_000;
+const MAX_MOBILE_SAFARI_PIXELS = 16_000_000;
 
 self.onmessage = async function (e) {
   const { id, file, options } = e.data;
@@ -61,13 +63,15 @@ async function processImage(file, options, progress) {
   progress(30);
 
   let { width, height } = bitmap;
-
-  // Guard against huge images
-  if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
-    const ratio = Math.min(MAX_DIMENSION / width, MAX_DIMENSION / height);
-    width = Math.round(width * ratio);
-    height = Math.round(height * ratio);
+  const sourceWidth = width;
+  const sourceHeight = height;
+  const pixelBudget = getPixelBudget();
+  const pixelScale = Math.min(1, MAX_CANVAS_SIDE / width, MAX_CANVAS_SIDE / height, Math.sqrt(pixelBudget / (width * height)));
+  if (pixelScale < 1) {
+    width = Math.max(1, Math.floor(width * pixelScale));
+    height = Math.max(1, Math.floor(height * pixelScale));
   }
+  const wasPixelCapped = width !== sourceWidth || height !== sourceHeight;
 
   // Apply resize constraints
   if (maxWidth || maxHeight) {
@@ -84,27 +88,36 @@ async function processImage(file, options, progress) {
     ctx.fillRect(0, 0, width, height);
   }
 
-  ctx.drawImage(bitmap, 0, 0, width, height);
-  bitmap.close();
+  try {
+    ctx.drawImage(bitmap, 0, 0, width, height);
+  } finally {
+    bitmap.close();
+  }
 
   progress(60);
 
   let blob;
+  let warning = wasPixelCapped
+    ? `This image exceeded the safe ${Math.round(pixelBudget / 1_000_000)} MP processing limit and was resized to ${width} × ${height} pixels.`
+    : '';
 
-  // ── PNG branch: use UPNG.js for real quantization ──────────────────────────
   if (outputMime === 'image/png' && self.UPNG) {
     blob = await encodeWithUPNG(canvas, width, height, pngColors);
+    if (targetKB) warning = `${warning} Target size is supported for JPEG and WebP; PNG output may exceed the target.`.trim();
   } else if (targetKB && outputMime !== 'image/png') {
-    blob = await binarySearchQuality(canvas, outputMime, targetKB);
+    const targetResult = await fitTargetWorker(canvas, outputMime, targetKB);
+    blob = targetResult.blob;
+    if (!targetResult.met) warning = `${warning} The requested ${targetKB} KB limit could not be reached; this output is ${(blob.size / 1024).toFixed(1)} KB.`.trim();
   } else {
     const q = outputMime === 'image/png' ? undefined : quality / 100;
     blob = await canvas.convertToBlob({ type: outputMime, quality: q });
+    if (outputMime === 'image/png' && targetKB) warning = `${warning} Target size is supported for JPEG and WebP; PNG output may exceed the target.`.trim();
   }
 
   progress(90);
 
   // If output is LARGER than original, keep original
-  if (blob.size >= file.size && format === 'original' && !targetKB && !maxWidth && !maxHeight) {
+  if (blob.size >= file.size && format === 'original' && outputMime === inputMime && inputMime !== 'image/gif' && !targetKB && !maxWidth && !maxHeight) {
     const origBlob = file.slice(0, file.size, file.type);
     return {
       blob: origBlob,
@@ -114,18 +127,12 @@ async function processImage(file, options, progress) {
       width,
       height,
       keptOriginal: true,
+      mode,
+      warning,
     };
   }
 
-  return {
-    blob,
-    originalSize: file.size,
-    newSize: blob.size,
-    outputMime,
-    width,
-    height,
-    keptOriginal: false,
-  };
+  return { blob, originalSize: file.size, newSize: blob.size, outputMime, width, height, keptOriginal: false, mode, warning };
 }
 
 // ── UPNG PNG encoding ──────────────────────────────────────────────────────────
@@ -133,25 +140,41 @@ async function encodeWithUPNG(canvas, width, height, pngColors) {
   const ctx = canvas.getContext('2d');
   const imageData = ctx.getImageData(0, 0, width, height);
 
-  // UPNG.encode: quantize to pngColors colors, lossless
+  // UPNG.encode limits the palette to pngColors; 0 requests full-color lossless encoding.
   const encoded = UPNG.encode(
     [imageData.data.buffer],
     width,
     height,
-    pngColors // 0 = lossless, 1-256 = lossy quantization
+    pngColors // 0 = lossless; 1-256 = palette color limit (may be lossy)
   );
 
   return new Blob([encoded], { type: 'image/png' });
 }
 
-// ── Binary search quality ──────────────────────────────────────────────────────
+async function fitTargetWorker(sourceCanvas, mime, targetKB) {
+  const targetBytes = targetKB * 1024;
+  let working = sourceCanvas;
+  let blob = null;
+  for (let attempt = 0; attempt < 12; attempt++) {
+    blob = await binarySearchQuality(working, mime, targetKB);
+    if (blob.size <= targetBytes) return { blob, met: true };
+    if (working.width <= 1 && working.height <= 1) break;
+    const scale = Math.min(0.85, Math.sqrt(targetBytes / blob.size) * 0.92);
+    const width = Math.max(1, Math.floor(working.width * scale));
+    const height = Math.max(1, Math.floor(working.height * scale));
+    if (width === working.width && height === working.height) break;
+    const smaller = new OffscreenCanvas(width, height);
+    smaller.getContext('2d').drawImage(sourceCanvas, 0, 0, width, height);
+    working = smaller;
+  }
+  return { blob, met: Boolean(blob && blob.size <= targetBytes) };
+}
+
 async function binarySearchQuality(canvas, mime, targetKB) {
   const targetBytes = targetKB * 1024;
   let lo = 1, hi = 92, bestBlob = null;
-
   let blob = await canvas.convertToBlob({ type: mime, quality: hi / 100 });
   if (blob.size <= targetBytes) return blob;
-
   for (let i = 0; i < 12; i++) {
     const mid = Math.round((lo + hi) / 2);
     blob = await canvas.convertToBlob({ type: mime, quality: mid / 100 });
@@ -159,11 +182,17 @@ async function binarySearchQuality(canvas, mime, targetKB) {
     else hi = mid - 1;
     if (lo > hi) break;
   }
-
   return bestBlob ?? await canvas.convertToBlob({ type: mime, quality: 0.01 });
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
+
+function getPixelBudget() {
+  const ua = navigator.userAgent || '';
+  const mobileSafari = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1);
+  return mobileSafari ? MAX_MOBILE_SAFARI_PIXELS : MAX_DESKTOP_PIXELS;
+}
+
 function resolveOutputMime(format, inputMime) {
   if (format === 'original') {
     // GIF → PNG (canvas can't re-encode GIF multi-frame)
@@ -185,3 +214,4 @@ function computeDimensions(srcW, srcH, maxW, maxH, keepAspect) {
     height: Math.round(srcH * ratio),
   };
 }
+

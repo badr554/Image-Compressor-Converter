@@ -30,13 +30,12 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- AdSense script here -->
 
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts.css">
+  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
   <!-- JSON-LD: WebApplication -->
   <script type="application/ld+json">
@@ -119,15 +118,14 @@
 
     <!-- Drop Zone -->
     <div id="drop-zone" class="drop-zone" role="button" tabindex="0"
-         aria-label="Drop images here, or press Enter to choose files"
-         aria-describedby="drop-zone-formats">
+         aria-labelledby="drop-zone-title drop-zone-hint btn-choose drop-zone-formats">
       <div class="drop-zone-icon" aria-hidden="true">
         <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
         </svg>
       </div>
-      <p class="drop-zone-title">Drop images here</p>
-      <p class="drop-zone-sub">or paste from clipboard (Ctrl+V / ⌘+V)</p>
+      <p id="drop-zone-title" class="drop-zone-title">Drop images here</p>
+      <p id="drop-zone-hint" class="drop-zone-sub">or paste from clipboard (Ctrl+V / ⌘+V)</p>
       <button class="btn-choose" id="btn-choose" type="button">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
@@ -208,10 +206,10 @@
         </div>
 
         <div class="setting-group" id="png-colors-group" style="display:none">
-          <label class="setting-label" for="png-colors">PNG Colors: <span id="png-colors-val">256</span></label>
+          <label class="setting-label" for="png-colors">PNG color limit: <span id="png-colors-val">256</span></label>
           <input type="range" id="png-colors" class="quality-slider" min="16" max="256" value="256"
-                 aria-label="PNG color count for quantization (16 = most compressed, 256 = best quality)">
-          <div class="slider-labels" aria-hidden="true"><span>16 (smaller)</span><span>256 (better)</span></div>
+                 aria-label="PNG color count for quantization (limits the palette to 16–256 colors; this can be lossy)">
+          <div class="slider-labels" aria-hidden="true"><span>16 colors (smaller)</span><span>256 colors (more detail)</span></div>
         </div>
       </div>
     </div>
@@ -345,7 +343,7 @@
       <h3>Understanding Image Formats: JPG vs PNG vs WebP</h3>
       <p>Before compressing, it helps to know which format you're working with and why. The three dominant web formats each have distinct strengths:</p>
 
-      <table class="compare-table" role="table" aria-label="Comparison of JPG, PNG, and WebP image formats">
+      <div class="table-scroll" role="region" tabindex="0" aria-label="Scrollable data table"><table class="compare-table" role="table" aria-label="Comparison of JPG, PNG, and WebP image formats">
         <thead>
           <tr><th scope="col">Feature</th><th scope="col">JPEG</th><th scope="col">PNG</th><th scope="col">WebP</th></tr>
         </thead>
@@ -358,7 +356,7 @@
           <tr><td>Browser support</td><td>Universal</td><td>Universal</td><td>96%+ (2024)</td></tr>
           <tr><td>Savings vs JPEG</td><td>—</td><td>Much larger</td><td>25–35% smaller</td></tr>
         </tbody>
-      </table>
+      </table></div>
 
       <h3>When to Use Each Format</h3>
       <p><strong>JPEG</strong> remains the workhorse of web photography. Product photos, blog feature images, backgrounds, and any image with rich gradients or photographic detail belong in JPEG format at quality 75–85. Below quality 70, visible block artifacts ("mosquito noise") start to appear around edges and text.</p>
@@ -479,7 +477,7 @@
         <p>Free, private, browser-based image tools. No accounts. No uploads. No compromises.</p>
       </div>
       <div class="footer-col">
-        <h4>Tools</h4>
+        <h3 class="footer-col-heading">Tools</h3>
         <ul class="footer-links">
           <li><a href="/compress-image-to-100kb.html">Compress to 100 KB</a></li>
           <li><a href="/png-to-jpg.html">PNG to JPG</a></li>
@@ -488,7 +486,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Learn</h4>
+        <h3 class="footer-col-heading">Learn</h3>
         <ul class="footer-links">
           <li><a href="/blog/index.html">Blog</a></li>
           <li><a href="/blog/webp-vs-jpg.html">WebP vs JPG Guide</a></li>
@@ -497,7 +495,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Company</h4>
+        <h3 class="footer-col-heading">Company</h3>
         <ul class="footer-links">
           <li><a href="/about.html">About</a></li>
           <li><a href="/contact.html">Contact</a></li>
@@ -543,7 +541,7 @@
 </div>
 
 <!-- JSZip from CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/js/vendor/jszip.min.js"></script>
 
 <!-- FAQ JSON-LD -->
 <script type="application/ld+json">
@@ -561,17 +559,7 @@
 </script>
 
 <!-- PNG colors slider toggle -->
-<script>
-  (function() {
-    const fmt = document.getElementById('format-select');
-    const pngGroup = document.getElementById('png-colors-group');
-    function toggle() {
-      if (pngGroup) pngGroup.style.display = fmt?.value === 'png' ? '' : 'none';
-    }
-    fmt?.addEventListener('change', toggle);
-    toggle();
-  })();
-</script>
+
 
 <script type="module" src="/js/app.js"></script>
 </body>
