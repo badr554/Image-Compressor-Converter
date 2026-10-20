@@ -22,7 +22,7 @@ PixelSqueeze is a static browser-based image compression, conversion, and resizi
 - Contact form: replace Formspree `YOUR_FORM_ID` in `contact.html` with your form ID and submit a test.
 - Search Console: replace `YOUR_VERIFICATION_CODE` comments in page heads with the exact supplied meta tag and remove comment markers.
 - AdSense: add its approved script where the AdSense head comment appears. Put only the exact authorized seller declaration from your account in `ads.txt`; do not guess publisher IDs.
-- Domain: update `https://pixelsqueeze.com` in canonical, Open Graph, structured data, and sitemap URLs if the live domain changes; review `robots.txt` too.
+- Domain: update `https://pixelsqueeze.site` in canonical, Open Graph, structured data, and sitemap URLs if the live domain changes; review `robots.txt` too.
 
 ## Lighthouse checklist
 Check mobile and desktop layout; headings, titles, descriptions, canonical URLs, and image alt text; image dimensions and transfer size; keyboard navigation, visible focus, contrast, and link labels; console errors and failed requests; production Core Web Vitals; and policy text against the third-party scripts actually enabled.

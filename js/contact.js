@@ -27,7 +27,7 @@ contactForm?.addEventListener('submit', async (event) => {
   submitButton.disabled = false;
   const message = document.getElementById('form-error');
   if (message) {
-    message.textContent = 'The form is not connected yet. Please email contact@pixelsqueeze.com directly.';
+    message.textContent = 'The form is not connected yet. Please email contact@pixelsqueeze.site directly.';
     message.hidden = false;
   }
 });
