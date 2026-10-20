@@ -1,1 +1,1 @@
-# Placeholder: add the exact authorized sellers declaration supplied by AdSense.
+google.com, pub-3153005228543932, DIRECT, f08c47fec0942fa0
