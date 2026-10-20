@@ -21,7 +21,7 @@ PixelSqueeze is a static browser-based image compression, conversion, and resizi
 ## Replace placeholders
 - Contact: the contact page opens an email to `badrsalah012@gmail.com`; confirm the inbox receives messages.
 - Search Console: replace `YOUR_VERIFICATION_CODE` comments in page heads with the exact supplied meta tag and remove comment markers.
-- AdSense: add its approved script where the AdSense head comment appears. Put only the exact authorized seller declaration from your account in `ads.txt`; do not guess publisher IDs.
+- AdSense: the approved publisher script is installed in page heads. Add only the exact authorized seller declaration from your account to ads.txt; do not guess publisher IDs.
 - Domain: update `https://pixelsqueeze.site` in canonical, Open Graph, structured data, and sitemap URLs if the live domain changes; review `robots.txt` too.
 
 ## Lighthouse checklist
