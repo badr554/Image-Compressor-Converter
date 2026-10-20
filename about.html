@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About PixelSqueeze — Built by Badr, Cybersecurity Graduate</title>
-  <meta name="description" content="PixelSqueeze is built by Badr, a cybersecurity graduate and web developer. Learn how 100% browser-based image processing works and why your privacy is guaranteed.">
+  <title>About PixelSqueeze</title>
+  <meta name="description" content="PixelSqueeze is a privacy-first image tool. Your files stay on your device while image processing runs in your browser.">
   <link rel="canonical" href="https://pixelsqueeze.site/about.html">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pixelsqueeze.site/about.html">
-  <meta property="og:title" content="About PixelSqueeze — Built by Badr">
-  <meta property="og:description" content="The story behind PixelSqueeze — a free, private image compression tool built by Badr, cybersecurity graduate and front-end developer.">
+  <meta property="og:title" content="About PixelSqueeze">
+  <meta property="og:description" content="Learn how PixelSqueeze keeps image processing private with browser-based tools and no file uploads.">
   <meta property="og:image" content="https://pixelsqueeze.site/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="About PixelSqueeze">
@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="/css/fonts.css">
   <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@graph":[{"@type":"Person","name":"Badr","jobTitle":"Cybersecurity Graduate & Front-End Developer","url":"https://pixelsqueeze.site/about.html","description":"Creator of PixelSqueeze, a free browser-based image compression tool."},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"PixelSqueeze","item":"https://pixelsqueeze.site"},{"@type":"ListItem","position":2,"name":"About","item":"https://pixelsqueeze.site/about.html"}]}]}
+  {"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"PixelSqueeze","url":"https://pixelsqueeze.site"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"PixelSqueeze","item":"https://pixelsqueeze.site"},{"@type":"ListItem","position":2,"name":"About","item":"https://pixelsqueeze.site/about.html"}]}]}
   </script>
 </head>
 <body>
@@ -37,7 +37,7 @@
   <div class="container">
     <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="breadcrumb-sep" aria-hidden="true">›</span><span aria-current="page">About</span></nav>
     <h1>About PixelSqueeze</h1>
-    <p>The story of why I built this, how the technology works, and my commitment to your privacy.</p>
+    <p>Learn about our privacy-first approach and how image processing works in your browser.</p>
   </div>
 </div>
 
@@ -45,26 +45,18 @@
   <div class="container">
     <div style="max-width:760px;margin:0 auto">
 
-      <!-- Author section -->
       <section aria-labelledby="author-heading" style="margin-bottom:3rem;padding:2rem;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-xl);box-shadow:var(--shadow-md)">
-        <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.5rem">
-          <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--indigo-500),var(--emerald-500));display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0" aria-hidden="true">👨‍💻</div>
-          <div>
-            <h2 id="author-heading" style="font-size:1.5rem;margin-bottom:0.25rem">Badr</h2>
-            <p style="color:var(--indigo-500);font-weight:600;margin:0">Cybersecurity Graduate &amp; Front-End Developer</p>
-            <p style="color:var(--text-muted);font-size:0.875rem;margin-top:0.25rem">Arab Academy for Science and Technology · Based in Egypt</p>
-          </div>
-        </div>
-        <p>I'm Badr — a cybersecurity graduate with a strong interest in web privacy and performance. I built PixelSqueeze because I was frustrated with existing image compression tools that require uploading your files to a server. When you work with sensitive images — medical photos, ID documents, personal photos — the last thing you should have to do is hand them to a third party. I knew the browser was capable of doing this work locally, so I built a tool that proves it.</p>
-        <p style="margin-top:1rem">My background in cybersecurity means I think hard about trust models and threat surfaces. The fundamental architecture of PixelSqueeze — no backend, no file storage, no user accounts — isn't just a feature; it's a deliberate design choice that eliminates entire categories of risk.</p>
+        <h2 id="author-heading" style="font-size:1.5rem;margin-bottom:0.75rem">About PixelSqueeze</h2>
+        <p>PixelSqueeze began from frustration with image tools that require uploading files to a server. Images can be sensitive, and processing them should not require handing them to a third party. We built PixelSqueeze around a privacy-first design so image work happens locally in your browser.</p>
+        <p style="margin-top:1rem">There is no backend, no file storage, and no user accounts. Everything runs in your browser, so your selected images stay on your device throughout processing.</p>
       </section>
 
       <!-- Why it exists -->
       <section aria-labelledby="why-heading" style="margin-bottom:2.5rem">
         <h2 id="why-heading">Why PixelSqueeze Exists</h2>
         <p>In 2026, there are dozens of image compression websites. Most of them upload your files to a server, process them, let you download the result, and then (they claim) delete the file after a few hours. Whether or not that deletion happens, you've already transmitted your image data over the internet to infrastructure you don't control. For a cat photo, that's fine. For a passport scan or a medical report, it shouldn't be necessary.</p>
-        <p>Modern browsers have matured to the point where professional-grade image processing is possible entirely in-browser. The <code>Canvas API</code>, <code>createImageBitmap()</code>, <code>OffscreenCanvas</code>, and Web Workers give front-end developers the tools to compress, convert, and resize images with the same results as server-side tools — without any network transmission.</p>
-        <p>PixelSqueeze is my attempt to build the tool I wanted to use: fast, clean, private by design, and free with no strings attached.</p>
+        <p>Modern browsers have matured to the point where professional-grade image processing is possible entirely in-browser. The <code>Canvas API</code>, <code>createImageBitmap()</code>, <code>OffscreenCanvas</code>, and Web Workers make it possible to to compress, convert, and resize images with the same results as server-side tools — without any network transmission.</p>
+        <p>PixelSqueeze is designed to be fast, clean, private by design, and free with no strings attached.</p>
       </section>
 
       <!-- Technical explanation -->
@@ -97,10 +89,10 @@
       <!-- Contact -->
       <section aria-labelledby="contact-cta" style="padding:2rem;background:var(--indigo-50);border-radius:var(--radius-xl);text-align:center">
         <h2 id="contact-cta" style="margin-bottom:0.75rem">Get in Touch</h2>
-        <p>Have a feature request, found a bug, or just want to say hi? I'd love to hear from you.</p>
+        <p>Have a feature request or found a bug? We'd love to hear from you.</p>
         <a href="/contact.html" class="btn-choose" style="display:inline-flex;margin-top:1rem;text-decoration:none">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          Contact Me
+          Contact the team
         </a>
       </section>
 
@@ -116,7 +108,7 @@
       <div class="footer-col"><h3 class="footer-col-heading">Learn</h3><ul class="footer-links"><li><a href="/blog/index.html">Blog</a></li><li><a href="/#faq">FAQ</a></li></ul></div>
       <div class="footer-col"><h4>Legal</h4><ul class="footer-links"><li><a href="/privacy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms</a></li><li><a href="/disclaimer.html">Disclaimer</a></li><li><a href="/contact.html">Contact</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><p>© 2026 PixelSqueeze. Built by Badr. All processing happens in your browser.</p></div>
+    <div class="footer-bottom"><p>© 2026 PixelSqueeze. Built and maintained by the PixelSqueeze team.</p></div>
   </div>
 </footer>
 
