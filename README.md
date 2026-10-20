@@ -19,7 +19,7 @@ PixelSqueeze is a static browser-based image compression, conversion, and resizi
 5. Verify canonical URLs, sitemap, 404 handling, and social previews after deployment.
 
 ## Replace placeholders
-- Contact form: replace Formspree `YOUR_FORM_ID` in `contact.html` with your form ID and submit a test.
+- Contact: the contact page opens an email to `badrsalah012@gmail.com`; confirm the inbox receives messages.
 - Search Console: replace `YOUR_VERIFICATION_CODE` comments in page heads with the exact supplied meta tag and remove comment markers.
 - AdSense: add its approved script where the AdSense head comment appears. Put only the exact authorized seller declaration from your account in `ads.txt`; do not guess publisher IDs.
 - Domain: update `https://pixelsqueeze.site` in canonical, Open Graph, structured data, and sitemap URLs if the live domain changes; review `robots.txt` too.
@@ -28,4 +28,4 @@ PixelSqueeze is a static browser-based image compression, conversion, and resizi
 Check mobile and desktop layout; headings, titles, descriptions, canonical URLs, and image alt text; image dimensions and transfer size; keyboard navigation, visible focus, contrast, and link labels; console errors and failed requests; production Core Web Vitals; and policy text against the third-party scripts actually enabled.
 
 ## Manual test list
-Open each page directly and follow its links. Compress, resize, and convert sample JPEG, PNG, and WebP files; verify dimensions and transparency. Try a large image and an undecodable file. Test worker and main-thread fallback in browsers with and without OffscreenCanvas. Configure and submit the contact form. Request a nonexistent route and confirm the custom 404 page. Inspect sitemap and robots endpoints and social metadata. The browser QA harness also covers GIF first-frame conversion, EXIF rotation, ZIP output, 50-file cleanup, target-size compression and malicious filenames.
+Open each page directly and follow its links. Compress, resize, and convert sample JPEG, PNG, and WebP files; verify dimensions and transparency. Try a large image and an undecodable file. Test worker and main-thread fallback in browsers with and without OffscreenCanvas. Open the contact page and verify Send email opens a message draft. Request a nonexistent route and confirm the custom 404 page. Inspect sitemap and robots endpoints and social metadata. The browser QA harness also covers GIF first-frame conversion, EXIF rotation, ZIP output, 50-file cleanup, target-size compression and malicious filenames.

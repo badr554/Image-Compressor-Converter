@@ -46,57 +46,11 @@
   <div class="container">
     <div style="max-width:640px;margin:0 auto">
 
-      <div class="contact-info">
-        <h3>📧 Direct Email</h3>
-        <p style="font-size:0.9375rem;color:var(--text-secondary)">Prefer email? Reach me directly at: <a href="mailto:contact@pixelsqueeze.site">contact@pixelsqueeze.site</a></p>
-        <p style="font-size:0.875rem;color:var(--text-muted);margin-top:0.5rem">This is a mailto link and opens your email client. Your email address is not shared with any third party.</p>
-      </div>
-
-      <!-- Formspree contact form -->
       <div class="contact-form">
-        <h2 style="font-size:1.25rem;margin-bottom:1.25rem">Send a Message</h2>
-
-        <!--
-          SETUP INSTRUCTIONS:
-          1. Go to https://formspree.io and create a free account.
-          2. Create a new form and copy your Form ID (looks like: xpznqkvo).
-          3. Replace YOUR_FORM_ID below with your actual Form ID.
-          The form will work without any server-side code.
-        -->
-        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="contact-form" novalidate>
-          <div class="form-group">
-            <label class="form-label" for="contact-name">Your Name <span style="color:var(--rose-500)">*</span></label>
-            <input type="text" id="contact-name" name="name" class="form-input" required placeholder="John Smith" autocomplete="name">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="contact-email">Email Address <span style="color:var(--rose-500)">*</span></label>
-            <input type="email" id="contact-email" name="email" class="form-input" required placeholder="you@example.com" autocomplete="email">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="contact-subject">Subject</label>
-            <input type="text" id="contact-subject" name="subject" class="form-input" placeholder="Bug report / Feature request / Other">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="contact-message">Message <span style="color:var(--rose-500)">*</span></label>
-            <textarea id="contact-message" name="message" class="form-textarea" required placeholder="Describe your issue or idea in detail. If reporting a bug, include the browser, OS, and file type you were using."></textarea>
-          </div>
-          <!-- Honeypot anti-spam -->
-          <input type="text" name="_gotcha" style="display:none" tabindex="-1" aria-hidden="true">
-          <input type="hidden" name="_subject" value="PixelSqueeze Contact Form">
-
-          <p id="form-error" class="form-note" role="status" aria-live="polite" hidden></p>
-            <button type="submit" class="form-submit" id="form-submit">
-            Send Message
-          </button>
-          <p class="form-note">
-            This form is powered by <a href="https://formspree.io" rel="noopener noreferrer" target="_blank">Formspree</a>. Your message goes directly to my inbox.<br>
-            Alternatively: <a href="mailto:contact@pixelsqueeze.site">contact@pixelsqueeze.site</a>
-          </p>
-        </form>
-        <div id="form-success" style="display:none;padding:1.5rem;background:var(--emerald-50);border:1px solid var(--emerald-100);border-radius:var(--radius-lg);text-align:center;margin-top:1rem">
-          <p style="color:var(--emerald-700);font-weight:700;font-size:1.0625rem">✓ Message sent!</p>
-          <p style="color:var(--emerald-600);margin-top:0.375rem;font-size:0.9375rem">Thank you for reaching out. I'll get back to you within 48 hours.</p>
-        </div>
+        <h2 style="font-size:1.25rem;margin-bottom:1.25rem">Email me</h2>
+        <p style="margin-bottom:1rem;color:var(--text-secondary)">You can reach me at <a href="mailto:badrsalah012@gmail.com">badrsalah012@gmail.com</a>.</p>
+        <a class="form-submit" href="mailto:badrsalah012@gmail.com" style="display:block;text-align:center;text-decoration:none">Send email</a>
+        <p class="form-note">Replies usually come within 2 business days.</p>
       </div>
 
       <div style="margin-top:2rem;padding:1.25rem;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-lg)">
@@ -126,6 +80,6 @@
 </footer>
 
 <script src="/js/site.js" defer></script>
-<script src="/js/contact.js" defer></script>
+
 </body>
 </html>
